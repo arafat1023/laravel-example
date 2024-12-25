@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projects</title>
-</head>
-<body>
-<h1>Projects</h1>
+@extends('layouts.app')
 
-<ul>
-    @foreach ($projects as $project)
-        <li>{{ $project->name }} - {{ $project->description }}</li>
-    @endforeach
-</ul>
-</body>
-</html>
+@section('content')
+    <h1>Projects</h1>
+
+    <ul>
+        @foreach ($projects as $project)
+            <li><a href="/projects/{{ $project->id }}">{{ $project->name }}</a> - {{ $project->description }}</li>
+        @endforeach
+    </ul>
+@endsection
