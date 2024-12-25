@@ -2,6 +2,11 @@
 
 @section('content')
     <h1>{{ $project->name }}</h1>
-    <p>{{ $project->description }}</p>
-    <a href="/projects">Back to Projects</a>
+
+    <div class="main-content"> {{-- Added a container div --}}
+        @include('partials.project-details')
+
+        <a href="{{ route('projects.index') }}">Back to Projects</a>
+    </div>
 @endsection
+

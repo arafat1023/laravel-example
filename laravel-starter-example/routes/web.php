@@ -14,6 +14,10 @@ Route::get('/example', function () {
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 
-Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
+//Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
+
+Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+
+
 
 
