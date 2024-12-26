@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Project Manager</title>
+    <title>{{ $appName }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 <nav>
-    <a href="/projects">Projects</a>
+    <a href="{{ route('projects.index') }}">{{ $appName }} - {{ $appDescription }}</a>
 </nav>
 
 <div class="container">
     @yield('content')
 </div>
+
+<footer>
+    <p>&copy; {{ $currentYear }} {{ $appName }}. All rights reserved.</p>
+</footer>
 </body>
 </html>
 
