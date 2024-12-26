@@ -18,6 +18,10 @@ Route::get('/projects', [ProjectController::class, 'index'])->name('projects.ind
 
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 
 
 
