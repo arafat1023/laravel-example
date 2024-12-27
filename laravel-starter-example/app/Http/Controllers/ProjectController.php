@@ -52,4 +52,13 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects.index');
     }
+
+    public function approve(Project $project): \Illuminate\Http\RedirectResponse
+    {
+        // Logic to approve the project
+        $project->update(['approved' => true]);
+
+        return redirect()->route('projects.show', $project);
+    }
+
 }
