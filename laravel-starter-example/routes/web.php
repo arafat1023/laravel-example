@@ -3,25 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 
-
+// Welcome and About routes
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/example', function () {
-    return view('example');
-});
-
-Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
-
-//Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
-
-Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+})->name('welcome');
 
 Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
 
+// Project resource routes using ProjectController
+Route::resource('projects', ProjectController::class);
 
-
-
+// **Optional (if you didn't implement route model binding in show method):**
+// Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
