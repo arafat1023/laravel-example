@@ -15,6 +15,22 @@ catch (PDOException $e){
 }
 
 $recordsPerPage = 2;
+
+$sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'name';
+$sortOrder = isset($_GET['order']) ? $_GET['order'] : 'asc';
+
+// Validate sorting parameters
+$allowedColumns = ['name', 'description'];
+$allowedOrders = ['asc', 'desc'];
+
+if (!in_array($sortColumn, $allowedColumns)) {
+    $sortColumn = 'name';
+}
+if (!in_array($sortOrder, $allowedOrders)) {
+    $sortOrder = 'asc';
+}
+
+
 $stmt= $pdo->query("SELECT Count(*) As total_records from projects");
 $totalRecords = $stmt->fetch()['total_records'];
 $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -27,7 +43,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
 echo "<p>Current Page: $currentPage</p>";
 echo "<p>Offset: $offset</p>";
 
-$stmt = $pdo->prepare("SELECT * FROM projects LIMIT :offset, :limit");
+$stmt = $pdo->prepare("SELECT * FROM projects ORDER BY $sortColumn $sortOrder LIMIT :offset, :limit");
 $stmt->bindValue(':limit', $recordsPerPage, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
@@ -68,10 +84,29 @@ echo "<p>Total Records: " . count($projects). " records for the pages</p>";
             color: #ccc;
             pointer-events: none;
         }
+        .sorting-links {
+            margin-bottom: 20px;
+        }
+        .sorting-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .sorting-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <h1>Projects</h1>
+
+    <div class="sorting-links">
+        <strong>Sort By:</strong>
+        <a href="?sort=name&order=asc&page=<?= $currentPage ?>">Name Asc</a>
+        <a href="?sort=name&order=desc&page=<?= $currentPage ?>">Name Desc</a>
+        <a href="?sort=description&order=asc&page=<?= $currentPage ?>">Description Asc</a>
+        <a href="?sort=description&order=desc&page=<?= $currentPage ?>">Description Desc</a>
+    </div>
 
 <?php
 // Display fetched records
@@ -90,7 +125,7 @@ if (empty($projects)) {
     <?php
     // Display "Previous" button
     if ($currentPage > 1) {
-        echo "<a href='?page=" . ($currentPage - 1) . "'>Previous</a>";
+        echo "<a href='?page=" . ($currentPage - 1) . "&sort=$sortColumn&order=$sortOrder'>Previous</a>";
     } else {
         echo "<a class='disabled'>Previous</a>";
     }
@@ -98,12 +133,12 @@ if (empty($projects)) {
     // Display page links
     for ($i = 1; $i <= $totalPages; $i++) {
         $active = $i == $currentPage ? "active" : "";
-        echo "<a href='?page=$i' class='$active'>Page $i</a>";
+        echo "<a href='?page=$i&sort=$sortColumn&order=$sortOrder' class='$active'>Page $i</a>";
     }
 
     // Display "Next" button
     if ($currentPage < $totalPages) {
-        echo "<a href='?page=" . ($currentPage + 1) . "'>Next</a>";
+        echo "<a href='?page=" . ($currentPage + 1) . "&sort=$sortColumn&order=$sortOrder'>Next</a>";
     } else {
         echo "<a class='disabled'>Next</a>";
     }
