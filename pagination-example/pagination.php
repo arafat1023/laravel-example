@@ -64,29 +64,50 @@ echo "<p>Total Records: " . count($projects). " records for the pages</p>";
             font-weight: bold;
             pointer-events: none;
         }
+        .pagination a.disabled {
+            color: #ccc;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <h1>Projects</h1>
 
-    <?php
-    // Display fetched records
+<?php
+// Display fetched records
+if (empty($projects)) {
+    echo "<p>No records found.</p>";
+} else {
     foreach ($projects as $project) {
         echo "<h3>{$project['name']}</h3>";
         echo "<p>{$project['description']}</p>";
         echo "<hr>";
     }
-    ?>
+}
+?>
 
-    <div class="pagination">
-        <?php
-        // Display pagination links
-        for ($i = 1; $i <= $totalPages; $i++) {
-            $active = $i == $currentPage ? "active" : "";
-            echo "<a href='?page=$i' class='$active'>Page $i</a> ";
-        }
-        ?>
-    </div>
+<div class="pagination">
+    <?php
+    // Display "Previous" button
+    if ($currentPage > 1) {
+        echo "<a href='?page=" . ($currentPage - 1) . "'>Previous</a>";
+    } else {
+        echo "<a class='disabled'>Previous</a>";
+    }
+
+    // Display page links
+    for ($i = 1; $i <= $totalPages; $i++) {
+        $active = $i == $currentPage ? "active" : "";
+        echo "<a href='?page=$i' class='$active'>Page $i</a>";
+    }
+
+    // Display "Next" button
+    if ($currentPage < $totalPages) {
+        echo "<a href='?page=" . ($currentPage + 1) . "'>Next</a>";
+    } else {
+        echo "<a class='disabled'>Next</a>";
+    }
+    ?>
+</div>
 </body>
 </html>
-
