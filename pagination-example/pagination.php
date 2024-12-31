@@ -43,15 +43,26 @@ echo "<p>Total Records: " . count($projects). " records for the pages</p>";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagination Example</title>
     <style>
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
         .pagination a {
             margin: 0 5px;
             text-decoration: none;
             padding: 5px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            color: #333;
         }
         .pagination a:hover {
             background-color: #f0f0f0;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -71,7 +82,8 @@ echo "<p>Total Records: " . count($projects). " records for the pages</p>";
         <?php
         // Display pagination links
         for ($i = 1; $i <= $totalPages; $i++) {
-            echo "<a href='?page=$i'>Page $i</a> ";
+            $active = $i == $currentPage ? "active" : "";
+            echo "<a href='?page=$i' class='$active'>Page $i</a> ";
         }
         ?>
     </div>
