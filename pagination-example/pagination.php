@@ -31,6 +31,7 @@ $stmt = $pdo->prepare("SELECT * FROM projects LIMIT :offset, :limit");
 $stmt->bindValue(':limit', $recordsPerPage, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
+$projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo "<p>Total Records: " . count($projects). " records for the pages</p>";
 ?>
 
