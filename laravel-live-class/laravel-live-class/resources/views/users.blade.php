@@ -1,3 +1,4 @@
 @foreach($users as $user)
-<p>{{ $user }}</p>
+    <p>{{ $user->name }} - {{ $user->email }}</p>
 @endforeach
+
