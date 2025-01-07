@@ -16,3 +16,14 @@ Route::get('/users', function () {
     $users = User::all();
     return view('users', compact('users'));
 });
+
+Route::get('/users/{id}', function ($id) {
+    $user = User::find($id);
+
+    if ($user) {
+        return view('user', compact('user'));
+    } else {
+        return response('User not found', 404);
+    }
+});
+
