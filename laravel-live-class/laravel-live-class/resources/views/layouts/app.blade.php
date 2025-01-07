@@ -9,6 +9,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="/users">User List</a>
+        <a href="/add-user">Add User</a>
     </nav>
 </header>
 <main>

@@ -27,3 +27,8 @@ Route::get('/users/{id}', function ($id) {
     }
 });
 
+Route::get('/add-user', function () {
+    return view('add-user');
+});
+
+
