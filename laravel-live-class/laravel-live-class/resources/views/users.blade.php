@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'User List')
-
 @section('content')
     <ul>
         @if (count($users) > 0)
