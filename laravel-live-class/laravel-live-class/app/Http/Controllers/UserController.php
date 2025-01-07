@@ -12,4 +12,13 @@ class UserController extends Controller
         $users = User::all();
         return view('users', compact('users'));
     }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response('User not found', 404);
+        }
+        return view('user', compact('user'));
+    }
 }

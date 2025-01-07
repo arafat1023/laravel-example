@@ -17,15 +17,7 @@ Route::get('/greeting', function () {
 
 Route::get('/users', [UserController::class, 'index']);
 
-Route::get('/users/{id}', function ($id) {
-    $user = User::find($id);
-
-    if ($user) {
-        return view('user', compact('user'));
-    } else {
-        return response('User not found', 404);
-    }
-});
+Route::get('/users/{id}', [UserController::class, 'show']); // Show a single user
 
 Route::get('/add-user', function () {
     return view('add-user');
