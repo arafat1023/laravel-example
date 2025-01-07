@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; // Import this namespace\
@@ -13,10 +14,8 @@ Route::get('/greeting', function () {
     return view('greeting');
 });
 
-Route::get('/users', function () {
-    $users = User::all();
-    return view('users', compact('users'));
-});
+
+Route::get('/users', [UserController::class, 'index']);
 
 Route::get('/users/{id}', function ($id) {
     $user = User::find($id);
