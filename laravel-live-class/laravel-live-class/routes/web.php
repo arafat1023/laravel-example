@@ -21,23 +21,9 @@ Route::get('/users/{id}', [UserController::class, 'show']); // Show a single use
 
 Route::get('/add-user', [UserController::class, 'create']);
 
+Route::post('/users', [UserController::class, 'store']); // Handle form submission
 
-Route::post('/users', function (Request $request) {
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email|max:255',
-        'password' => 'required|min:8|confirmed', // Require password confirmation
-    ]);
 
-    // Create the user
-    User::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'password' => bcrypt($validated['password']), // Hash the password
-    ]);
-
-    return redirect('/users')->with('success', 'User added successfully!');
-});
 
 
 
