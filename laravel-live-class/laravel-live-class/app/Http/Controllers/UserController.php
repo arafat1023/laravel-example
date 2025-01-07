@@ -21,4 +21,9 @@ class UserController extends Controller
         }
         return view('user', compact('user'));
     }
+
+    public function create()
+    {
+        return view('add-user');
+    }
 }

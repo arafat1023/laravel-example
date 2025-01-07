@@ -19,9 +19,7 @@ Route::get('/users', [UserController::class, 'index']);
 
 Route::get('/users/{id}', [UserController::class, 'show']); // Show a single user
 
-Route::get('/add-user', function () {
-    return view('add-user');
-});
+Route::get('/add-user', [UserController::class, 'create']);
 
 
 Route::post('/users', function (Request $request) {
