@@ -13,10 +13,6 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        Project::create([
-            'name' => 'Sample Project',
-            'description' => 'This is a sample project description.',
-            'status' => 'completed',
-        ]);
+        Project::factory()->count(3)->create();
     }
 }
